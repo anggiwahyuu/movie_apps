@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
+import 'package:movie_apps/model/genres.dart';
+import 'package:movie_apps/model/movies.dart';
 import 'package:movie_apps/service/movies_service.dart';
 
 class MoviesController extends GetxController {
-  final movies = [].obs;
+  final movies = <Movies>[].obs;
+  final genres = <Genres>[].obs;
   final isLoading = true.obs;
 
   late MoviesService moviesService;
@@ -11,8 +14,9 @@ class MoviesController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     readDataMovies();
+    readDataGenres();
+    super.onInit();
   }
 
   void readDataMovies() async {
@@ -21,6 +25,18 @@ class MoviesController extends GetxController {
       var movie = await moviesService.fetchAllMovies();
       if (movie.isNotEmpty) {
         movies.value = movie;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void readDataGenres() async {
+    try {
+      isLoading(true);
+      var genre = await moviesService.fetchAllGenres();
+      if (genre.isNotEmpty) {
+        genres.value = genre;
       }
     } finally {
       isLoading(false);

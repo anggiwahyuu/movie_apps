@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:movie_apps/model/genres.dart';
 import 'package:movie_apps/model/movies.dart';
 
 class MoviesService extends GetxService {
@@ -17,7 +18,26 @@ class MoviesService extends GetxService {
 
         List<Movies> results = List.from(data.map((movie) => Movies.fromJson(movie)));
 
-        print(results);
+        return results.toList();
+      }
+
+      throw Exception();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Genres>> fetchAllGenres() async {
+    String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey";
+
+    try {
+      final response = await dio.get(url);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final jsonResponse = response.data;
+        final data = jsonResponse["genres"];
+
+        List<Genres> results = List.from(data.map((genre) => Genres.fromJson(genre)));
 
         return results;
       }
