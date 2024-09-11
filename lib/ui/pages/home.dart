@@ -9,13 +9,15 @@ class MyHomePage extends StatelessWidget {
 
   final MoviesController moviesController = Get.put(MoviesController(moviesService: Get.find<MoviesService>()));
 
+  final username = Get.arguments as String;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Selamat Datang", style: TextStyle(color: Colors.white),),
+        title: Text("Selamat Datang, $username", style: TextStyle(color: Colors.white),),
       ),
       body: SafeArea(
         child: Obx(() {

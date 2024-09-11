@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_apps/service/movies_service.dart';
 import 'package:movie_apps/ui/pages/detail.dart';
+import 'package:movie_apps/ui/pages/get_started.dart';
 import 'package:movie_apps/ui/pages/home.dart';
 
 void main() {
@@ -23,8 +24,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: "/home",
+      initialRoute: "/",
       getPages: [
+        GetPage(name: "/", page: () => GetStarted()),
         GetPage(name: "/home", page: () => MyHomePage()),
         GetPage(name: "/detail", page: () => DetailPage())
       ],
